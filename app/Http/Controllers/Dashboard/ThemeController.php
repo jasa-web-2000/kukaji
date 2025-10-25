@@ -101,6 +101,11 @@ class ThemeController extends Controller
      */
     public function destroy(Theme $theme)
     {
+
+        if ($theme->id == 1) {
+            return back()->withErrors(['Tema default tidak boleh dihapus!']);
+        }
+
         $theme->delete();
 
         return redirect()->back()->withErrors(['Tema berhasil dihapus!']);

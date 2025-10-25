@@ -26,7 +26,7 @@
                 class="close-modal absolute text-2xl top-0 right-3 text-gray-500 hover:text-gray-700">&times;</button>
             <h2 class="text-xl text-center font-bold mb-4">Hapus Data?</h2>
             <p class="text-center whitespace-normal">Apakah ada yakin menghapus data
-                {{ $item->$column }}?</p>
+                "{{ $item->$column }}"?</p>
             <div class="**:text-center mt-4">
                 <x-dashboard.submit />
             </div>

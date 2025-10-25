@@ -159,6 +159,10 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+
+        if ($user->id == 1) {
+            return back()->withErrors(['Pengguna default tidak boleh dihapus!']);
+        }
         $user->delete();
 
         return redirect()->back()->withErrors(['Pengguna berhasil dihapus!']);

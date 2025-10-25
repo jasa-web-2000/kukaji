@@ -97,6 +97,9 @@ class SpeakerController extends Controller
      */
     public function destroy(Speaker $speaker)
     {
+        if ($speaker->id == 1) {
+            return back()->withErrors(['Pembicara default tidak boleh dihapus!']);
+        }
         $speaker->delete();
 
         return redirect()->back()->withErrors(['Pembicara berhasil dihapus!']);
