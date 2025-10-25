@@ -46,7 +46,7 @@
             <div class="col-span-full sm:col-span-1">
                 <label class="required" for="phone">Telephone (+ kode negara)
                 </label>
-                <input id="phone" value="{{ old('phone') ?: (isset($data->phone) && $data->phone ?: '62') }}"
+                <input id="phone" value="{{ old('phone') ?? (isset($data->phone) ? $data->phone : '62') }}"
                     type="number" name="phone" required autocomplete="off" />
             </div>
 
