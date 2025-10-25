@@ -4,20 +4,20 @@ namespace App\View\Components\Dashboard;
 
 use Closure;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\View\Component;
 
-class ActionTable extends Component
+class DataCount extends Component
 {
     /**
      * Create a new component instance.
      */
     public function __construct(
-        public string $edit,
-        public string $destroy,
-        public string $column,
-        public Model $item,
-    ) {
+        public string $icon,
+        public string $title,
+        public string $count,
+        public string $percent,
+    )
+    {
         //
     }
 
@@ -26,6 +26,6 @@ class ActionTable extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.dashboard.action-table');
+        return view('components.dashboard.data-count');
     }
 }

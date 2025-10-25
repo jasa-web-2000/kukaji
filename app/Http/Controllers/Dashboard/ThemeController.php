@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Models\Theme;
-use App\Http\Requests\StoreThemeRequest;
-use App\Http\Requests\UpdateThemeRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Theme\IndexRequest;
+use App\Http\Requests\Dashboard\Theme\StoreRequest;
+use App\Http\Requests\Dashboard\Theme\UpdateRequest;
 use App\Models\Event;
 
 class ThemeController extends Controller
@@ -43,15 +43,24 @@ class ThemeController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.dashboard.theme.create', [
+            'page' => 'Tambah Tema',
+            'title' => 'Halaman Tambah Tema',
+            'desc' => 'Halaman Tambah Tema',
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreThemeRequest $request)
+    public function store(StoreRequest $request)
     {
-        //
+
+        $data = $request->validated();
+
+        Theme::create($data);
+
+        return redirect()->route('dashboard.theme.index')->withErrors(['Tema berhasil ditambahkan!']);
     }
 
     /**
@@ -67,15 +76,24 @@ class ThemeController extends Controller
      */
     public function edit(Theme $theme)
     {
-        //
+        return view('pages.dashboard.theme.edit', [
+            'page' => 'Edit Tema',
+            'title' => 'Halaman Edit Tema',
+            'desc' => 'Halaman Edit Tema',
+            'data' => $theme,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateThemeRequest $request, Theme $theme)
+    public function update(UpdateRequest $request, Theme $theme)
     {
-        //
+        $data = $request->validated();
+
+        $theme->update($data);
+
+        return redirect()->back()->withErrors(['Tema berhasil diperbaharui!']);
     }
 
     /**

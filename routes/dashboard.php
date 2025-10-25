@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\Dashboard\EventController;
+use App\Http\Controllers\Dashboard\EventParticipantController;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\LogoutController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\ResetPasswordController;
+use App\Http\Controllers\Dashboard\SpeakerController;
 use App\Http\Controllers\Dashboard\ThemeController;
 use App\Http\Controllers\Dashboard\UserController;
 use Illuminate\Support\Facades\Route;
@@ -27,4 +29,6 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
     Route::resource('user', UserController::class)->middleware('role:admin');
     Route::resource('event', EventController::class)->middleware('role:admin,eo');
     Route::resource('theme', ThemeController::class)->middleware('role:admin');
+    Route::resource('speaker', SpeakerController::class)->middleware('role:admin');
+    Route::resource('event-participant', EventParticipantController::class);
 });

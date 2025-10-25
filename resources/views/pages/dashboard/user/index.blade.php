@@ -73,7 +73,7 @@
                             </td>
                             <td>
                                 <div
-                                    class="option w-16  {{ $item->role == 'admin' ? 'bg-sky-500' : ($item->role == 'eo' ? 'bg-emerald-500' : 'bg-amber-500') }}">
+                                    class="option w-fit border  {{ $item->role == 'admin' ? 'bg-sky-500' : ($item->role == 'eo' ? 'bg-emerald-500' : 'bg-amber-500') }}">
                                     {{ $item->role }}
                                 </div>
                             </td>
@@ -85,7 +85,7 @@
                                 </div>
                             </td>
                             <td>
-                                <x-dashboard.action-table :edit="route('dashboard.user.edit', ['user' => $item])" :destroy="route('dashboard.user.destroy', ['user' => $item])" :item="$item" />
+                                <x-dashboard.action-table :edit="route('dashboard.user.edit', ['user' => $item])" :destroy="route('dashboard.user.destroy', ['user' => $item])" :item="$item" column="username" />
                             </td>
                         </tr>
                     @empty

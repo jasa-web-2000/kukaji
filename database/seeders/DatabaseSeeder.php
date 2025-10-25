@@ -22,5 +22,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::factory(100)->create();
 
         \App\Models\Theme::factory(100)->create();
+
+        \App\Models\Speaker::factory(100)->create();
     }
 }

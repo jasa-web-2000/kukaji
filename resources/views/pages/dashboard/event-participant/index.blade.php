@@ -3,7 +3,7 @@
 @section('content-dashboard')
     <div class="col-span-full!">
 
-        <x-dashboard.header-table page="{{ $page }}" url="{{ route('dashboard.theme.create') }}" />
+        <x-dashboard.header-table page="{{ $page }}" url="{{ route('dashboard.event-participant.create') }}" />
 
         {{-- Filter --}}
         <x-dashboard.search-table search="nama" />
@@ -56,7 +56,7 @@
                                 <div>{{ $item->name }}</div>
                             </td>
                             <td>
-                                <x-dashboard.action-table :edit="route('dashboard.theme.edit', ['theme' => $item])" :destroy="route('dashboard.theme.destroy', ['theme' => $item])" :item="$item"
+                                <x-dashboard.action-table :edit="route('dashboard.event-participant.edit', ['event-participant' => $item])" :destroy="route('dashboard.event-participant.destroy', ['event-participant' => $item])" :item="$item"
                                     column="name" />
                             </td>
                         </tr>

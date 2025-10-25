@@ -3,7 +3,7 @@
         <div class="flex items-center justify-between">
             <div class="flex items-center justify-start">
                 <button id="toggleSidebarMobile" aria-expanded="true" aria-controls="sidebar"
-                    class="lg:hidden mr-2 text-text-description-black cursor-pointer p-2 hover:bg-background-secondary/80 focus:bg-background-secondary/80 focus:ring-2 ring-1 ring-gray-300 focus:ring-gray-500 bg-background-secondary rounded">
+                    class="lg:hidden mr-2 text-text-description-black cursor-pointer p-2 hover:bg-background-secondary/80 focus:bg-background-secondary/80 focus:ring-2 ring-1 ring-gray-300 focus:ring-gray-500 bg-background-secondary/20 rounded">
                     <svg id="toggleSidebarMobileHamburger" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd"

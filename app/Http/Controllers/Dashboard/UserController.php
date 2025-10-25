@@ -60,7 +60,6 @@ class UserController extends Controller
             'page' => 'Tambah Pengguna',
             'title' => 'Halaman Tambah Pengguna',
             'desc' => 'Halaman Tambah Pengguna',
-            'data' => null,
         ]);
     }
 

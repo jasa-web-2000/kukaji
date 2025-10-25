@@ -2,7 +2,7 @@
 
 @section('content-dashboard')
     <div class="col-span-full!">
-        <x-form action="{{ route('dashboard.user.store') }}">
+        <x-form action="{{ route('dashboard.event.store') }}">
 
             <!-- Nama Lengkap -->
             <div class="col-span-full sm:col-span-1">

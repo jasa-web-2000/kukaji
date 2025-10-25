@@ -8,7 +8,7 @@
 
 @section('content-dashboard')
     <div class="col-span-full!">
-        <x-form action="{{ route('dashboard.theme.update', ['theme' => $data]) }}" methodTop="POST" methodBottom="PUT">
+        <x-form action="{{ route('dashboard.event-participant.update', ['event-participant' => $data]) }}" methodTop="POST" methodBottom="PUT">
 
             <!-- Nama Tema -->
             <div class="col-span-full">

@@ -3,7 +3,7 @@
 @section('content-dashboard')
     <div class="col-span-full!">
 
-        <x-dashboard.header-table page="{{ $page }}" url="{{ route('dashboard.user.create') }}" />
+        <x-dashboard.header-table page="{{ $page }}" url="{{ route('dashboard.event.create') }}" />
 
         {{-- Filter --}}
         <x-dashboard.search-table search="username,phone" />
@@ -88,7 +88,7 @@
                                 </div>
                             </td>
                             <td>
-                                <x-dashboard.action-table :edit="route('dashboard.user.edit', ['user' => $item])" :destroy="route('dashboard.user.destroy', ['user' => $item])" :item="$item" />
+                                <x-dashboard.action-table :edit="route('dashboard.event.edit', ['event' => $item])" :destroy="route('dashboard.event.destroy', ['event' => $item])" :item="$item" />
                             </td>
                         </tr>
                     @empty

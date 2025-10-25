@@ -183,7 +183,7 @@
                 @apply line-clamp-1 block text-ellipsis max-w-52;
 
                 &.option {
-                    @apply capitalize text-sm text-text-description-white text-center rounded-full px-2 py-0.5;
+                    @apply capitalize text-[13px] text-text-title-white px-3 py-0.5 rounded-full;
                 }
             }
         }

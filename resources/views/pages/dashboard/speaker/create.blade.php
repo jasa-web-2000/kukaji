@@ -2,7 +2,7 @@
 
 @section('content-dashboard')
     <div class="col-span-full!">
-        <x-form action="{{ route('dashboard.theme.store') }}">
+        <x-form action="{{ route('dashboard.speaker.store') }}">
 
             <!-- Nama Tema -->
             <div class="col-span-full">
