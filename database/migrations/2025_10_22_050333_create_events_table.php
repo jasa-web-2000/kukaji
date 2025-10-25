@@ -27,17 +27,15 @@ return new class extends Migration
             $table->timestamp('date')->nullable();
 
             $table->foreignId('theme_id')
-                ->default(0)
+                ->default(1)
                 ->references('id')
-                ->on('themes')
-                ->onDelete('set default');
+                ->on('themes');
 
 
             $table->foreignId('speaker_id')
-                ->default(0)
+                ->default(1)
                 ->references('id')
-                ->on('speakers')
-                ->onDelete('set default');
+                ->on('speakers');
 
             $table->text('description')->nullable();
             $table->dateTime('timestamp');
