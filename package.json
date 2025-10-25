@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "push": "git add -A && git commit -m \"malas\" && git push -u origin main"
+    },
+    "devDependencies": {
+        "axios": "^1.6.4",
+        "laravel-vite-plugin": "^1.0.0",
+        "vite": "^5.0.0"
+    },
+    "dependencies": {
+        "@tailwindcss/vite": "^4.1.15",
+        "tailwindcss": "^4.1.15"
+    }
+}

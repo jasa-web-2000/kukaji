@@ -1,0 +1,236 @@
+@import "tailwindcss";
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    /* --font-inter: "Inter", sans-serif; */
+    --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+
+    --animation-bounce: var(--animate-bounce);
+
+    @keyframes bounce {
+        0%,
+        100% {
+            transform: translateY(-10%);
+            animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+        }
+        50% {
+            transform: none;
+            animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+        }
+    }
+}
+
+@theme inline {
+    --color-primary: var(--primary);
+    --color-secondary: var(--secondary);
+
+    --color-background-primary: var(--color-gray-50);
+    --color-background-secondary: var(--color-gray-200);
+
+    --color-text-title-black: var(--color-gray-800);
+    --color-text-description-black: var(--color-gray-700);
+
+    --color-text-title-white: var(--color-gray-200);
+    --color-text-description-white: var(--color-gray-300);
+
+    --color-link: var(--color-blue-500);
+    --color-danger: var(--color-red-400);
+    --color-focus: var(--color-slate-400);
+}
+
+:root {
+    --primary: oklch(0.5857 0.1356 118.3);
+    --secondary: var(--color-lime-400);
+}
+
+@layer base {
+    h1 {
+        @apply capitalize text-4xl sm:text-5xl lg:text-6xl font-bold tracking-wide text-text-title-white;
+    }
+    h2 {
+        @apply text-text-title-black capitalize text-xl md:text-2xl font-semibold;
+    }
+    h3 {
+        @apply text-text-title-black capitalize text-lg md:text-xl font-semibold;
+    }
+    button,
+    select,
+    input,
+    a,
+    label {
+        @apply cursor-pointer;
+    }
+
+    input,
+    textarea,
+    select {
+        @apply focus:outline-2 focus:outline-primary! w-full border-slate-300!;
+    }
+
+    .landing button,
+    input,
+    textarea,
+    select {
+        @apply my-pseudo text-sm text-text-description-black py-1.5 rounded-md px-3 border border-slate-400;
+    }
+
+    input,
+    select {
+        @apply h-[33.33px];
+    }
+
+    label {
+        @apply font-medium inline-flex! text-[15px];
+    }
+
+    a {
+        @apply hover:text-primary hover:text-shadow-2xs;
+    }
+
+    main a {
+        @apply underline text-link;
+    }
+
+    article {
+        & p {
+            @apply mb-4 text-justify;
+        }
+        & :is(h2, h3) {
+            @apply mb-5 pl-2.5 relative;
+
+            &:before,
+            &:after {
+                @apply absolute left-0 content-[''] border h-2/3 top-1/2 -translate-y-1/2 border-primary;
+            }
+        }
+
+        & h3 {
+            @apply pl-5!;
+
+            &:after {
+                @apply left-2.5;
+            }
+        }
+
+        & ol {
+            @apply list-decimal ml-8 mb-5;
+        }
+
+        & table {
+            @apply w-full border-collapse border border-gray-400 bg-background-primary text-sm;
+
+            & thead {
+                @apply bg-background-secondary/30;
+
+                & th {
+                    @apply border border-gray-300 p-4 text-left font-semibold text-text-title-black;
+                }
+            }
+
+            & tbody td {
+                @apply border border-gray-300 p-4;
+            }
+        }
+    }
+
+    .dashboard {
+        h2 {
+            @apply text-xl opacity-80;
+        }
+
+        .my-table {
+            @apply relative w-full overflow-x-auto min-h-[200px];
+
+            table {
+                @apply w-full caption-bottom text-sm table-auto;
+            }
+        }
+
+        thead {
+            @apply [&_tr]:border-b;
+
+            tr {
+                @apply border-b border-b-slate-200 transition-colors bg-white hover:bg-white;
+            }
+
+            th {
+                @apply h-10 px-5 text-left align-middle font-medium whitespace-nowrap;
+
+                span {
+                    @apply font-semibold text-text-title-black;
+                }
+            }
+        }
+
+        tbody {
+            @apply [&_tr:last-child]:border-0 text-slate-600/90;
+
+            tr {
+                @apply hover:bg-slate-100 odd:bg-slate-50/80 border-b border-b-slate-200 transition-colors;
+            }
+            td {
+                @apply p-2 px-5 align-middle whitespace-nowrap;
+            }
+            td > div {
+                @apply line-clamp-1 block text-ellipsis max-w-52;
+
+                &.option {
+                    @apply capitalize text-sm text-text-description-white text-center rounded-full px-2 py-0.5;
+                }
+            }
+        }
+
+        .pagination {
+            a {
+                @apply btn-secondary;
+            }
+            .disabled {
+                @apply bg-slate-200! hover:bg-slate-200! opacity-40 cursor-not-allowed;
+            }
+        }
+    }
+}
+
+@utility my-pseudo {
+    @apply disabled:pointer-events-none disabled:cursor-not-allowed! disabled:opacity-50 disabled:bg-background-secondary focus:outline-2 focus:outline-focus shrink-0 [&_svg]:size-4 [&_svg]:shrink-0 focus-visible:border-background-primary focus-visible:ring-background-primary/50 focus-visible:ring-[3px] aria-invalid:ring-danger aria-invalid:border-danger border-[1.5px];
+}
+
+@utility my-container {
+    @apply w-full max-w-7xl mx-auto px-5;
+}
+
+@utility hero-gradient {
+    @apply absolute bg-cover bg-center w-full h-full bg-no-repeat before:absolute before:inset-0 before:content-[''] before:bg-linear-to-br before:from-lime-600/90!  before:to-primary/75!;
+}
+
+@utility simple-gradient {
+    @apply /*bg-gradient-to-br*/ bg-linear-to-br from-primary to-primary/65;
+}
+
+@utility my-space {
+    @apply min-h-24;
+}
+
+@utility py-mine {
+    @apply py-16 md:py-20 lg:py-24;
+}
+
+@utility btn {
+    @apply my-pseudo no-underline inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all  text-background-primary shadow-md py-1.5 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5;
+}
+
+@utility btn-primary {
+    @apply btn simple-gradient border-primary hover:bg-secondary/90;
+}
+
+@utility btn-secondary {
+    @apply btn border-primary text-text-description-black bg-transparent/50 hover:text-text-title-white hover:simple-gradient;
+}
