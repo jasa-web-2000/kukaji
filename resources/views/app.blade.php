@@ -30,7 +30,7 @@
         }
     </style>
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css'])
     {{-- @livewireStyles --}}
 
     <meta charset="utf-8">
@@ -88,7 +88,9 @@
 
     @yield('content')
 
+    @vite(['resources/js/app.js'])
     {{-- @livewireScripts --}}
+
 
 
 </body>

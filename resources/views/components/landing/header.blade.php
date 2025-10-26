@@ -28,7 +28,7 @@
                         Menu
                     </button>
 
-                    <div class="hidden [.active-menu~&]:block! absolute top-9 right-0">
+                    <div class="hidden [.active-menu~&]:block! absolute top-9 right-0 pt-2.5!">
                         <div class="p-5 w-[200px] block md:hidden rounded-sm shadow-sm bg-background-primary">
                             @include('components.landing.nav')
                         </div>

@@ -1,17 +1,28 @@
 // import './bootstrap';
 
-const seePasswords = document.querySelectorAll('svg.seePassword');
 
-seePasswords.forEach((e) => {
-    e.addEventListener('click', () => {
-        // Cari input password di parent container
-        const password = e.closest('div').querySelector('input.password');
-        if (!password) return;
+// Landing Toggle
+const menuToggle = document.querySelector('#menu-toggle')
+if (menuToggle) {
+    menuToggle.addEventListener('click', () => {
+        menuToggle.classList.toggle('active-menu')
+    })
+}
 
-        password.type = password.type === 'password' ? 'text' : 'password';
-        e.classList.toggle('active-password');
+// See P_assword
+const seePasswords = document.querySelectorAll('button.seePassword');
+if (seePasswords) {
+    seePasswords.forEach((e) => {
+        e.addEventListener('click', () => {
+            // Cari input password di parent container
+            const password = e.closest('div').querySelector('input.password');
+            if (!password) return;
+
+            password.type = password.type === 'password' ? 'text' : 'password';
+            e.classList.toggle('active-password');
+        });
     });
-});
+}
 
 
 
@@ -21,7 +32,6 @@ seePasswords.forEach((e) => {
 const aside = document.querySelector('#sidebar')
 const toggleSidebarMobile = document.querySelector('#toggleSidebarMobile')
 const sidebarBackdrop = document.querySelector('#sidebarBackdrop')
-
 if (toggleSidebarMobile && sidebarBackdrop) {
     sidebarBackdrop.addEventListener('click', () => {
         aside.classList.remove('!block');
