@@ -1,3 +1,9 @@
+@php
+    $label = $label ?? '';
+    $name = $name ?? '';
+    $required = $required ?? true;
+    $disabled = $disabled ?? false;
+@endphp
 <label @class(['required' => $required]) for="password">{{ $label }}
 </label>
 
