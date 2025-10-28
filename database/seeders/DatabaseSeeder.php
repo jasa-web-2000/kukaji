@@ -20,16 +20,22 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin',
             'status' => 'accept',
         ]);
-        \App\Models\User::factory(100)->create();
+        \App\Models\User::factory(40)->create();
 
         \App\Models\Theme::factory()->create([
             'name' => "Tidak Diketahui",
         ]);
-        \App\Models\Theme::factory(100)->create();
+        \App\Models\Theme::factory(10)->create();
 
         \App\Models\Speaker::factory()->create([
             'name' => "Tidak Diketahui",
         ]);
-        \App\Models\Speaker::factory(100)->create();
+        \App\Models\Speaker::factory(30)->create();
+
+        \App\Models\Event::factory(15)->create();
+
+        \App\Models\EventParticipant::factory(28)->create();
+
+
     }
 }

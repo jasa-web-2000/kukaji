@@ -18,6 +18,7 @@ class ThemeFactory extends Factory
     {
         return [
             'name' => fake()->name(),
+            'created_at' => $this->faker->dateTimeBetween('-5 days', 'now'),
         ];
     }
 }

@@ -38,6 +38,7 @@ class UserFactory extends Factory
             'birthdate' => fake()->date(),
             'status' => fake()->randomElement(['pending', 'reject', 'accept']),
             'photo' => fake()->imageUrl(),
+            'created_at' => $this->faker->dateTimeBetween('-5 days', 'now'),
 
         ];
     }
