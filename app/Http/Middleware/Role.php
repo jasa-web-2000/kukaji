@@ -23,6 +23,10 @@ class Role
                 abort(403);
             }
 
+            if (in_array($request->route()->getName(), exceptRoutes())) {
+                return $next($request);
+            }
+
             return redirect()->route('dashboard.index')->withErrors(['Akses ditolak!']);
         }
 

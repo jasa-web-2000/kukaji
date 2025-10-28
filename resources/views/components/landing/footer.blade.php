@@ -47,9 +47,9 @@
 
             <!-- Kontak -->
             <div class="sm:col-span-1 md:col-span-4">
-                <h3 class="light">Kontak</h3>
+                <h3 class="light">Support</h3>
                 <a target="_blank" rel="nofollow noindex"
-                    class="animate-bounce bg-linear-to-bl hover:from-green-600 hover:to-green-800 from-green-700 to-green-900 rounded-full fixed right-5 bottom-5 p-3 shadow z-999 hover:rotate-12 duration-300"
+                    class="bg-linear-to-bl hover:from-green-600 hover:to-green-800 from-green-700 to-green-900 rounded-full fixed right-5 bottom-5 p-3 shadow z-999 hover:rotate-12 duration-300"
                     href={{ whatsapp(web()->adminWhatsapp) }} title="whatsapp">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="text-slate-50 w-8 h-8">

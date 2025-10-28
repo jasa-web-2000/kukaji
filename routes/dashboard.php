@@ -26,9 +26,21 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
     Route::post('reset-password', [ResetPasswordController::class, 'submit'])
         ->name('reset-password.submit');
 
-    Route::resource('user', UserController::class)->middleware('role:admin');
-    Route::resource('event', EventController::class)->middleware('role:admin,eo');
-    Route::resource('theme', ThemeController::class)->middleware('role:admin');
-    Route::resource('speaker', SpeakerController::class)->middleware('role:admin');
-    Route::resource('event-participant', EventParticipantController::class);
+    Route::resource('user', UserController::class)
+        ->except(['show'])
+        ->middleware('role:admin');
+
+    Route::resource('event', EventController::class)
+        ->except(['show'])
+        ->middleware('role:admin,eo');
+
+    Route::resource('theme', ThemeController::class)
+        ->except(['show'])
+        ->middleware('role:admin');
+
+    Route::resource('speaker', SpeakerController::class)
+        ->except(['show'])
+        ->middleware('role:admin');
+
+    Route::resource('event-participant', EventParticipantController::class)->only(['index', 'store', 'destroy']);
 });

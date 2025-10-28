@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class EventLike extends Model
 {
     use HasFactory;
+
+    protected $table = 'event_likes';
+    protected $guard = ['id'];
 }

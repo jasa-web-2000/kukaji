@@ -23,7 +23,20 @@ class EventParticipantController extends Controller
         $orderDirection = $request->input('orderDirection', 'desc');
 
         $participant = EventParticipant::query()->select('id', 'user_id', 'event_id')
-            // ->where('name', 'like', "%{$search}%")
+            ->with(['user:id,username', 'event:id,user_id,name,thumbnail'])
+            ->when(auth()->user()->role != 'admin', function ($query) {
+                $query->where('user_id', auth()->id())
+                    ->orWhereHas('event', function ($q) {
+                        $q->where('user_id', auth()->id());
+                    });
+            })
+            ->where(function ($q) use ($search) {
+                $q->WhereHas('user', function ($q1) use ($search) {
+                    $q1->where('username', 'like', "%{$search}%");
+                })->orWhereHas('event', function ($q2) use ($search) {
+                    $q2->where('name', 'like', "%{$search}%");
+                });
+            })
             ->orderBy('id', $orderDirection)
             ->paginate($perPage, ['id', 'user_id', 'event_id']);
 
@@ -42,30 +55,22 @@ class EventParticipantController extends Controller
      */
     public function create()
     {
-        return view('pages.dashboard.event-participant.create', [
-            'page' => 'Tambah Pembicara',
-            'title' => 'Halaman Tambah Pembicara',
-            'desc' => 'Halaman Tambah Pembicara',
-        ]);
+        // return view('pages.dashboard.event-participant.create', [
+        //     'page' => 'Tambah Pembicara',
+        //     'title' => 'Halaman Tambah Pembicara',
+        //     'desc' => 'Halaman Tambah Pembicara',
+        // ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreRequest $request)
-    {
-
-        $data = $request->validated();
-
-        Speaker::create($data);
-
-        return redirect()->route('dashboard.event-participant.index')->withErrors(['Pembicara berhasil ditambahkan!']);
-    }
+    public function store() {}
 
     /**
      * Display the specified resource.
      */
-    public function show(Speaker $speaker)
+    public function show(EventParticipant $speaker)
     {
         //
     }
@@ -73,35 +78,20 @@ class EventParticipantController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Speaker $speaker)
-    {
-        return view('pages.dashboard.event-participant.edit', [
-            'page' => 'Edit Pembicara',
-            'title' => 'Halaman Edit Pembicara',
-            'desc' => 'Halaman Edit Pembicara',
-            'data' => $speaker,
-        ]);
-    }
+    public function edit(EventParticipant $speaker) {}
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRequest $request, Speaker $speaker)
-    {
-        $data = $request->validated();
-
-        $speaker->update($data);
-
-        return redirect()->back()->withErrors(['Pembicara berhasil diperbaharui!']);
-    }
+    public function update(EventParticipant $speaker) {}
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Speaker $speaker)
+    public function destroy(EventParticipant $event_participant)
     {
-        $speaker->delete();
+        $event_participant->delete();
 
-        return redirect()->back()->withErrors(['Pembicara berhasil dihapus!']);
+        return redirect()->back()->withErrors(['Peserta berhasil dihapus!']);
     }
 }

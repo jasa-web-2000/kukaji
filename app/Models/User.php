@@ -62,8 +62,17 @@ class User extends Authenticatable
         return [
             'path' => $fullPath,
             'exists' => false,
-            'url' => asset('img/profil.png')
+            'url' => img('img/profil.png')
         ];
+    }
+
+    public function eventCreate()
+    {
+        return $this->hasMany(Event::class, 'user_id', 'id');
+    }
+    public function eventParticipant()
+    {
+        return $this->hasMany(EventParticipant::class, 'user_id', 'id');
     }
 
 

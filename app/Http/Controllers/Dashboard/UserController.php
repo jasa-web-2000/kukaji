@@ -6,8 +6,8 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\User\IndexRequest;
-use App\Http\Requests\Dashboard\User\StoreUserRequest;
-use App\Http\Requests\Dashboard\User\UpdateUserRequest;
+use App\Http\Requests\Dashboard\User\StoreRequest;
+use App\Http\Requests\Dashboard\User\UpdateRequest;
 use Exception;
 
 class UserController extends Controller
@@ -28,6 +28,7 @@ class UserController extends Controller
         $orderDirection = $request->input('orderDirection', 'desc');
 
         $user = User::query()->select('id', 'username', 'role', 'phone', 'status')
+            ->withCount(['eventCreate', 'eventParticipant'])
             ->when($role, function ($query, $role) {
                 $query->where('role', $role);
             })
@@ -66,7 +67,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreUserRequest $request)
+    public function store(StoreRequest $request)
     {
         $data = $request->validated();
 
@@ -118,13 +119,20 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(UpdateRequest $request, User $user)
     {
+
+        $auth = auth()->user();
+        if ($auth->role != 'admin' && $auth->id != $user->id) {
+            return redirect()->back()->withErrors(['Akses ditolak!']);
+        }
+
         $data = $request->validated();
 
         if (empty($data['password'])) {
             unset($data['password']);
         }
+
 
         try {
             if ($request->hasFile('photo')) {
@@ -161,8 +169,14 @@ class UserController extends Controller
     {
 
         if ($user->id == 1) {
-            return back()->withErrors(['Pengguna default tidak boleh dihapus!']);
+            return back()->withErrors(['Pengguna
+             default tidak boleh dihapus!']);
         }
+
+        if ($user->id == auth()->user()->id) {
+            return back()->withErrors(['Akun sendiri tidak boleh dihapus!']);
+        }
+
         $user->delete();
 
         return redirect()->back()->withErrors(['Pengguna berhasil dihapus!']);

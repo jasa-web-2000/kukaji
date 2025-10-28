@@ -10,8 +10,9 @@
 
     <div class="flex flex-nowrap justify-end items-center gap-3 max-w-sm w-full sm:w-80">
         <div class="relative">
-            <input id="search" placeholder="{{ $search }}" type="text" value="{{ request('search') ?? '' }}"
-                autocomplete="search" class="border rounded px-3 py-2 w-full placeholder:text-slate-400" />
+            <input id="search" placeholder="{{ $search }}" title="{{ $search }}" type="text"
+                value="{{ request('search') ?? '' }}" autocomplete="search"
+                class="border rounded px-3 py-2 w-full placeholder:text-slate-400" />
             {{-- <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                 class="absolute right-3 top-1/2 -translate-y-1/2 stroke-slate-400">

@@ -10,7 +10,7 @@ Route::get('/', function () {
     ]);
 })->name('landing.index');
 
-Route::get('/arsip', function () {
+Route::get('/event', function () {
     return view('pages.landing.event', [
         'page' => 'Arsip',
         'title' => 'Arsip Title',

@@ -22,7 +22,7 @@ if (! function_exists('whatsapp')) {
 if (! function_exists('img')) {
     function img(?string $localImgUrl = null, ?string $defaultUrl = null)
     {
-        $resultUrl = $defaultUrl;
+        $resultUrl = $defaultUrl ?? asset('img/notfound.jpg');
 
         if (isset($localImgUrl) && file_exists($localImgUrl)) {
             $resultUrl = asset($localImgUrl);
@@ -42,6 +42,7 @@ if (! function_exists('web')) {
             "tagline" => "Tumukan Kajianmu",
             "transparentLogo" => img('img/logo-nav.png'),
             "defaultLogo" => img('img/logo-asli.jpg'),
+            "notfoundImg" => img(),
             "adminWhatsapp" => whatsapp(phoneNumber(null, true)),
         ];
 
@@ -103,5 +104,32 @@ if (!function_exists('exceptRoutes')) {
         ];
 
         return $exceptRoutes;
+    }
+}
+
+if (!function_exists('exceptRoutes')) {
+    function exceptRoutes()
+    {
+        $exceptRoutes = [
+            'dashboard.user.update',
+            'dashboard.profile.index',
+            'dashboard.logout',
+        ];
+
+        return $exceptRoutes;
+    }
+}
+
+if (!function_exists('regency')) {
+    function regency()
+    {
+        $jsonFilePath = storage_path('/app/public/regencies.json');
+
+        $json = \Illuminate\Support\Facades\File::get($jsonFilePath);
+
+        $resultData = json_decode($json, true);
+        $collection = collect($resultData);
+
+        return $collection->map(fn($item) => collect($item)->only(['id', 'name']));
     }
 }

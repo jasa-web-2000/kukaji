@@ -1,143 +1,92 @@
 @extends('layouts.dashboard')
 @php
-    $id = Auth::user()->id;
-    $role = Auth::user()->role;
-    $disabled = isset($data->role) && ($data->id == $id || $role != 'admin');
+    $user = auth()->user();
 @endphp
-
 
 @section('content-dashboard')
     <div class="col-span-full!">
         <x-form action="{{ route('dashboard.event.update', ['event' => $data]) }}" methodTop="POST" methodBottom="PUT">
 
-
-            <!-- Nama Lengkap -->
-            <div class="col-span-full sm:col-span-1">
-                <label class="required" class="required" for="fullname">Nama Lengkap
-                </label>
-                <input id="fullname" value="{{ old('fullname') ?? ($data->fullname ?? '') }}" type="text" name="fullname"
-                    required autocomplete="off" />
-            </div>
-
-            <!-- Username -->
-            <div class="col-span-full sm:col-span-1">
-                <label class="required" for="username">Username
-                </label>
-                <input id="username" value="{{ old('username') ?? ($data->username ?? '') }}" type="text"
-                    name="username" required autocomplete="off" />
-            </div>
-
-            <!-- Email -->
-            <div class="col-span-full sm:col-span-1">
-                <label class="required" for="email">Email
-                </label>
-                <input id="email" value="{{ old('email') ?? ($data->email ?? '') }}" type="email" name="email"
-                    required autocomplete="off" />
-            </div>
-
-            <!-- Password -->
-            <div class="col-span-full sm:col-span-1">
-                <x-input-password label="Password" name="password" disabled="{{ $disabled }}"
-                    required="{{ false }}" />
-            </div>
-
-            <!-- Phone -->
-            <div class="col-span-full sm:col-span-1">
-                <label class="required" for="phone">Telephone (+ kode negara)
-                </label>
-                <input id="phone" value="{{ old('phone') ?: (isset($data->phone) && $data->phone ?: '62') }}"
-                    type="number" name="phone" required autocomplete="off" />
-            </div>
-
-            <!-- birthdate -->
-            <div class="col-span-full sm:col-span-1">
-                <label class="required" for="birthdate">Tanggal Lahir
-                </label>
-                <input id="birthdate" value="{{ dateFormat(old('birthdate')) ?? (dateFormat($data->birthdate) ?? '') }}"
-                    type="date" name="birthdate" required autocomplete="off" />
-                {{-- <input id="birthdate" value="1999-10-1"
-                    type="date" name="birthdate" required autocomplete="off" /> --}}
-            </div>
-
-            <!-- Status -->
+            <!-- Judul -->
             <div class="col-span-full">
-                <label class="required">Status
+                <label class="required" class="required" for="name">Judul
+                </label>
+                <input id="name" value="{{ old('name') ?? ($data->name ?? '') }}" type="text" name="name"
+                    required />
+            </div>
+
+            <!-- Pengguna -->
+            <div class="">
+                <label class="required">Pengguna
                 </label>
 
                 <div class="">
-                    <select @disabled($disabled) name="status" id="status">
-                        <option>Pilih Status</option>
-                        <option
-                            {{ old('status') == 'pending' || (isset($data->status) && $data->status == 'pending') ? 'selected' : '' }}
-                            value="pending">Menunggu</option>
-                        <option
-                            {{ old('status') == 'reject' || (isset($data->status) && $data->status == 'reject') ? 'selected' : '' }}
-                            value="reject">Ditolak</option>
-                        <option
-                            {{ old('status') == 'accept' || (isset($data->status) && $data->status == 'accept') ? 'selected' : '' }}
-                            value="accept">Diterima</option>
+                    <select name="user_id" disabled id="user_id">
+                        <option selected value="{{ $data->user->id }}">{{ $data->user->username }}</option>
                     </select>
                 </div>
 
             </div>
 
-            <!-- Role -->
-            <div class="col-span-full sm:col-span-1">
-                <label class="required">Role
+            <!-- Status -->
+            <div class="">
+                <label class="required">Status
                 </label>
 
                 <div class="">
-                    @if ((isset($data->role) && $data->role == 'admin') || $role == 'admin')
-                        <x-radio-buttom name="role" id="admin" label="Admin"
-                            value="{{ old('role') ?? ($data?->role ?? '') }}" disabled="{{ $disabled }}" />
-                    @endif
-                    <x-radio-buttom name="role" id="eo" label="EO"
-                        value="{{ old('role') ?? ($data?->role ?? '') }}" disabled="{{ $disabled }}" />
-                    <x-radio-buttom name="role" id="user" label="User"
-                        value="{{ old('role') ?? ($data?->role ?? '') }}" disabled="{{ $disabled }}" />
+                    <select name="status" id="status" @disabled($user->role != 'admin')>
+                        <option>Pilih Status</option>
+                        <option @selected($user->role != 'admin' ?? old('status') == 'pending') value="pending">Menunggu</option>
+                        <option @selected(old('status') == 'reject') value="reject">Ditolak</option>
+                        <option @selected(old('status') == 'accept') value="accept">Diterima</option>
+                    </select>
                 </div>
-
             </div>
 
 
-            <!-- Gender -->
-            <div class="col-span-full sm:col-span-1">
-                <label class="required">Jenis Kelamin
+            <!-- Tanggal -->
+            <div class="">
+                <label class="required" for="date">Tanggal
                 </label>
-
-                <div class="">
-                    <x-radio-buttom name="gender" id="male" label="Laki=laki"
-                        value="{{ old('gender') ?? ($data?->gender ?? '') }}" />
-                    <x-radio-buttom name="gender" id="female" label="Perempuan"
-                        value="{{ old('gender') ?? ($data?->gender ?? '') }}" />
-                </div>
-
+                <input id="date" value="{{ dateFormat(old('date')) ?? (dateFormat($data->date) ?? '') }}"
+                    type="date" name="date" required />
             </div>
 
 
+            @php
+                $address = regency()->where('id', $data->address)->first();
+            @endphp
+
+            <!-- Alamat -->
+            <livewire:search-select :selectedName="$address['name'] ?? null" :selectedId="$address['id'] ?? null" table="regency" label="Kota/Kabupaten"
+                name="address" required="false" />
+
+            <!-- Tema -->
+            <livewire:search-select :selectedName="$data->theme->name ?? null" :selectedId="$data->theme_id ?? null" table="theme" label="Tema" name="theme_id"
+                required="false" />
+
+            <!-- Pembicara -->
+            <livewire:search-select :selectedName="$data->speaker->name ?? null" :selectedId="$data->speaker_id ?? null" table="speaker" label="Pembicara" name="speaker_id"
+                required="false" />
 
 
 
-
-            <!-- address -->
+            <!-- description -->
             <div class="col-span-full ">
-                <label class="required" for="address">Alamat
+                <label class="required" for="description">Deskripsi
                 </label>
-                <textarea name="address" id="address" rows="3" required>{{ old('address') ?? ($data?->address ?? '') }}</textarea>
+                <textarea name="description" id="description" rows="3" required>{{ old('description') ?? ($data?->description ?? '') }}</textarea>
             </div>
 
-            <!-- bio -->
+            <!-- note -->
             <div class="col-span-full ">
-                <label class="required" for="bio">Bio
+                <label for="note">Catatan Untuk Admin
                 </label>
-                <textarea name="bio" id="bio" rows="6" required>{{ old('bio') ?? ($data?->bio ?? '') }}</textarea>
+                <textarea name="note" id="note" rows="3" placeholder="Hanya admin yang bisa membaca ini!">{{ old('note') ?? ($data?->note ?? '') }}</textarea>
             </div>
 
-
-            <x-dashboard.preview-image src="{{ $data->photo['url'] }}" required="{{ !$data->photo['exists'] }}"
-                name="photo" />
-
-
+            <x-dashboard.preview-image src="{{ $data->thumbnail['url'] }}" required="{{ !$data->thumbnail['exists'] }}"
+                name="thumbnail" />
 
             <x-dashboard.submit />
         </x-form>

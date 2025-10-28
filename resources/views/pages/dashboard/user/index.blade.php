@@ -51,6 +51,16 @@
                             <x-dashboard.option-table name="Role" :list="['all', 'admin', 'eo', 'user']" param="role" />
                         </th>
                         <th>
+                            <div>
+                                <span>Event Dibuat</span>
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                <span>Event Diikuti</span>
+                            </div>
+                        </th>
+                        <th>
                             <x-dashboard.option-table name="Status" :list="['all', 'accept', 'pending', 'reject']" param="status" />
                         </th>
                     </tr>
@@ -78,6 +88,16 @@
                                 </div>
                             </td>
                             <td>
+                                <div>
+                                    {{ $item->event_create_count }}
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    {{ $item->event_participant_count }}
+                                </div>
+                            </td>
+                            <td>
                                 <div class="w-20 text-left flex">
                                     <span class="w-6 grid place-items-center">{!! $item->status == 'accept' ? '&#10004;' : ($item->status == 'pending' ? '&#9203;' : '&#10006;') !!}</span>
                                     {{ $item->status }}
@@ -85,7 +105,8 @@
                                 </div>
                             </td>
                             <td>
-                                <x-dashboard.action-table :edit="route('dashboard.user.edit', ['user' => $item])" :destroy="route('dashboard.user.destroy', ['user' => $item])" :item="$item" column="username" />
+                                <x-dashboard.action-table :edit="route('dashboard.user.edit', ['user' => $item])" :destroy="route('dashboard.user.destroy', ['user' => $item])" :item="$item"
+                                    column="username" />
                             </td>
                         </tr>
                     @empty

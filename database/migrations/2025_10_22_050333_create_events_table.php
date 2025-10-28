@@ -37,8 +37,11 @@ return new class extends Migration
                 ->references('id')
                 ->on('speakers');
 
+            $table->boolean('featured')->default(false);
+
             $table->text('description')->nullable();
-            $table->dateTime('timestamp');
+            $table->text('note')->nullable();
+            $table->timestamps();
         });
     }
 

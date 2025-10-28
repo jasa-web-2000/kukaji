@@ -6,7 +6,7 @@
         <x-dashboard.header-table page="{{ $page }}" url="{{ route('dashboard.event.create') }}" />
 
         {{-- Filter --}}
-        <x-dashboard.search-table search="username,phone" />
+        <x-dashboard.search-table search="judul, pemilik, tema, pembicara" />
 
         {{-- Data --}}
         <div class="my-table">
@@ -44,12 +44,37 @@
                         </th>
                         <th>
                             <div>
-                                <span>Name</span>
+                                <span>Judul</span>
                             </div>
                         </th>
                         <th>
                             <div>
-                                <span>Speaker</span>
+                                <span>Pembicara</span>
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                <span>Pemilik</span>
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                <span>Tema</span>
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                <span>Peserta</span>
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                <span>Suka</span>
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                <span>Featured</span>
                             </div>
                         </th>
 
@@ -65,19 +90,37 @@
                                 <div>{{ $data->perPage() * ($data->currentPage() - 1) + $loop->iteration }}</div>
                             </td>
                             <td>
-                                <div>{{ $item->username }}</div>
-                            </td>
-                            <td>
                                 <div>
-                                    <a class="text-slate-600/90" href="{{ whatsapp($item->phone) }}"
-                                        target="_blank">{{ $item->phone }}
+                                    <a href="{{ $item->thumbnail['url'] }}">
+                                        <img class="max-w-[70px]! aspect-square" src="{{ $item->thumbnail['url'] }}" />
                                     </a>
                                 </div>
                             </td>
+
                             <td>
-                                <div
-                                    class="option w-16  {{ $item->role == 'admin' ? 'bg-sky-500' : ($item->role == 'eo' ? 'bg-emerald-500' : 'bg-amber-500') }}">
-                                    {{ $item->role }}
+                                <div>{{ $item->name }}</div>
+                            </td>
+                            <td>
+                                <div>
+                                    {{ $item->speaker->name }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="">{{ $item->user->username }}</div>
+                            </td>
+                            <td>
+
+                                <div class="">{{ $item->theme->name }}</div>
+                            </td>
+                            <td>
+                                <div class="">{{ $item->event_participant_count }}</div>
+                            </td>
+                            <td>
+                                <div class="">{{ $item->event_like_count }}</div>
+                            </td>
+                            <td>
+                                <div class="">
+                                    <livewire:featured-event-button :event="$item" />
                                 </div>
                             </td>
                             <td>
@@ -88,7 +131,8 @@
                                 </div>
                             </td>
                             <td>
-                                <x-dashboard.action-table :edit="route('dashboard.event.edit', ['event' => $item])" :destroy="route('dashboard.event.destroy', ['event' => $item])" :item="$item" />
+                                <x-dashboard.action-table :edit="route('dashboard.event.edit', ['event' => $item])" :destroy="route('dashboard.event.destroy', ['event' => $item])" :item="$item"
+                                    column="name" />
                             </td>
                         </tr>
                     @empty

@@ -12,7 +12,7 @@ class PreviewImage extends Component
      * Create a new component instance.
      */
     public function __construct(
-        public string $src = 'notfound',
+        public $src = '/img/notfound.jpg',
         public bool $required = true,
         public string $name = 'thumbnail',
     ) {

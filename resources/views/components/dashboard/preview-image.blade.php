@@ -38,7 +38,7 @@
                 <label for="file-upload"
                     class="cursor-pointer rounded-md bg-white font-semibold text-mine focus-within:outline-none focus-within:ring-2 focus-within:ring-mine focus-within:ring-offset-2 hover:text-mine">
                     <span class="opacity-0">Unggah gambar</span>
-                    <img class="border border-slate-300 max-w-full max-h-full aspect-square rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                    <img class="border border-slate-200 h-full aspect-square absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
                         id="preview" src="{{ $src }}" alt="preview">
                 </label>
                 <p class="pl-1 opacity-0">batas 10mb</p>

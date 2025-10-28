@@ -11,7 +11,7 @@
     <input @disabled($disabled) placeholder="{{ $disabled ? '*******' : '' }}" class="password" type="password"
         name="{{ $name }}" @required($required) autocomplete="off" />
     <button
-        class="bg-slate-300 !p-0 grid place-items-center text-slate-600 h-[90%] aspect-square absolute right-0 rounded-e-md top-1/2 -translate-y-1/2 cursor-pointer seePassword"
+        class="bg-slate-300 p-0! grid place-items-center text-slate-600 h-[90%] aspect-square absolute right-0 rounded-e-md top-1/2 -translate-y-1/2 cursor-pointer seePassword"
         type="button">
 
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"

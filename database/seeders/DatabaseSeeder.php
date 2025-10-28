@@ -26,10 +26,10 @@ class DatabaseSeeder extends Seeder
             'name' => "Tidak Diketahui",
         ]);
         \App\Models\Theme::factory(100)->create();
-        
-        \App\Models\Speaker::factory(100)->create();
+
         \App\Models\Speaker::factory()->create([
             'name' => "Tidak Diketahui",
         ]);
+        \App\Models\Speaker::factory(100)->create();
     }
 }

@@ -28,7 +28,7 @@ class EventLikeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreEventLikeRequest $request)
+    public function store()
     {
         //
     }
@@ -52,7 +52,7 @@ class EventLikeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateEventLikeRequest $request, EventLike $eventLike)
+    public function update(EventLike $eventLike)
     {
         //
     }

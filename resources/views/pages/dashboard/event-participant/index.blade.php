@@ -3,10 +3,10 @@
 @section('content-dashboard')
     <div class="col-span-full!">
 
-        <x-dashboard.header-table page="{{ $page }}" url="{{ route('dashboard.event-participant.create') }}" />
+        <x-dashboard.header-table page="{{ $page }}" url="{{ route('landing.event') }}" />
 
         {{-- Filter --}}
-        <x-dashboard.search-table search="nama" />
+        <x-dashboard.search-table search="judul, nama peserta" />
 
         {{-- Data --}}
         <div class="my-table">
@@ -40,6 +40,19 @@
 
                         <th>
                             <div>
+                                <span>Thumbnail Event</span>
+                            </div>
+                        </th>
+
+
+                        <th>
+                            <div>
+                                <span>Judul Event</span>
+                            </div>
+                        </th>
+
+                        <th>
+                            <div>
                                 <span>Nama</span>
                             </div>
                         </th>
@@ -53,11 +66,22 @@
                                 <div>{{ $data->perPage() * ($data->currentPage() - 1) + $loop->iteration }}</div>
                             </td>
                             <td>
-                                <div>{{ $item->name }}</div>
+                                <div>
+                                    <a href="{{ $item->event->thumbnail['url'] }}">
+                                        <img class="max-w-[70px]! aspect-square"
+                                            src="{{ $item->event->thumbnail['url'] }}" />
+                                    </a>
+                                </div>
                             </td>
                             <td>
-                                <x-dashboard.action-table :edit="route('dashboard.event-participant.edit', ['event-participant' => $item])" :destroy="route('dashboard.event-participant.destroy', ['event-participant' => $item])" :item="$item"
-                                    column="name" />
+                                <div>{{ $item->event->name }}</div>
+                            </td>
+                            <td>
+                                <div>{{ $item->user->username }}</div>
+                            </td>
+                            <td>
+                                <x-dashboard.action-table edit="" :destroy="route('dashboard.event-participant.destroy', ['event_participant' => $item])" :item="$item"
+                                    column="" />
                             </td>
                         </tr>
                     @empty
